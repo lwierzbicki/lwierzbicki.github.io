@@ -17,7 +17,7 @@ An application had image file upload functionality and was written in PHP. I sta
 - The file's metadata is cleared (no EXIF data)
 - During testing the newest version of ImageMagick was used (disclosed in one of HTTP responses sent by the server)
 
-As you can see, quick kill by injecting PHP code in EXIF data was not possible. At that point I started thinking of next possible step. I knew I was looking for RCE.
+As you can see, injecting PHP code in EXIF data did not result in immediate exploitability. At that point I started thinking of next possible step. I knew I was looking for RCE.
 
 I reached the following conclusion: `If an uploaded image contains PHP code and that code is not modified, and file extension is one of php, then application should execute the file`. The challenge here is to find a place in an image where PHP code can be placed. Of course, you can read RFC/specifications and it can be useful. However, it may be difficult to apply that knowledge to a real situation as we don't have access to code and we don't know which part of an RFC can be useful. As I knew what I wanted to achieve, I could create some plan. Usually, if the problem is complex, I use a `divide and conquer` approach (like the way algorithm works).
 
