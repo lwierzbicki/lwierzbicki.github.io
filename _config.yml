@@ -25,8 +25,8 @@ github_username:  lwierzbicki
 
 
 # Build settings
-markdown: GFM
-#markdown: kramdown
+#markdown: GFM
+markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
