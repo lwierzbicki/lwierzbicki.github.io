@@ -10,7 +10,7 @@ source "https://rubygems.org"
 # Happy Jekylling!
 gem "jekyll", "~> 3.9.0"
 
-gem "github-pages", "~> 207", group: :jekyll_plugins
+#gem "github-pages", "~> 219", group: :jekyll_plugins
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima", "~> 2.5.1"
@@ -35,6 +35,6 @@ end
 gem "wdm", "~> 0.1.0", :install_if => Gem.win_platform?
 
 
-gem "kramdown", ">= 2.3.0"
+gem "kramdown", ">= 2.3.1"
 
 
