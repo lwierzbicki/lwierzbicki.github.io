@@ -9,18 +9,30 @@ layout: default
 
   {{ content }}
 
-
   {% if site.paginate %}
     {% assign posts = paginator.posts %}
   {% else %}
     {% assign posts = site.posts %}
   {% endif %}
 
+  <h2 class="post-list-heading">Security advisories</h2>
+   <ul class="post-list">
+     <li><h3><a class="post-link" href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ndb-path-traversal-wVDyXZPy">CVE-2020-3597</a></h3></li>
+     <li><h3><a class="post-link" href="https://www.zerodayinitiative.com/advisories/ZDI-21-879/">ZDI-21-879</a></h3></li>
+   </ul>
+
+   <h2 class="post-list-heading">Articles</h2>
+   <ul class="post-list">
+     <li><h3><a class="post-link" href="https://cobalt.io/blog/from-csrf-and-file-upload-to-rce-java">From CSRF and File Upload to RCE - JAVA</a></h3></li>
+     <li><h3><a class="post-link" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/exploitation-of-sharepoint-2016-simple-things-matter-case-study/">Exploitation of Sharepoint 2016: Simple Things Matter – Case Study</a></h3></li>
+     <li><h3><a class="post-link" href="https://www.synack.com/blog/guest-blog-from-file-upload-to-rce/">From File Upload to RCE</a></h3></li>
+   </ul>
 
   {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
+    <!--{%- if page.list_title -%}
       <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
+    {%- endif -%} -->
+    <h2 class="post-list-heading">Posts</h2>
     <ul class="post-list">
       {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
       {%- for post in posts -%}
