@@ -2,72 +2,82 @@
 layout: default
 ---
 
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
+<section class="hero">
+  <div class="hero-mark"><svg viewBox="0 0 240 240" role="img" aria-label="Willow Root Labs"><use href="#wrs-mark"/></svg></div>
+  <p class="eyebrow">Willow Root Labs</p>
+  <h1 class="hero-title">{{ site.tagline | default: page.title }}</h1>
+  {%- if content != "" -%}
+    <div class="stmt">{{ content }}</div>
   {%- endif -%}
+</section>
 
-  {{ content }}
+<!-- Coordinated advisories -->
+<section class="listing">
+  <p class="eyebrow">Advisories</p>
+  <h2 class="section">Coordinated disclosures</h2>
+  <ul class="link-list">
+    <li>
+      <a class="item" href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ndb-path-traversal-wVDyXZPy" target="_blank" rel="noopener">
+        <span class="item-title">CVE-2020-3597 — Cisco Nexus Dashboard path traversal</span>
+        <span class="item-meta">Cisco Security Advisory</span>
+      </a>
+    </li>
+    <li>
+      <a class="item" href="https://www.zerodayinitiative.com/advisories/ZDI-21-879/" target="_blank" rel="noopener">
+        <span class="item-title">ZDI-21-879</span>
+        <span class="item-meta">Zero Day Initiative</span>
+      </a>
+    </li>
+  </ul>
+</section>
 
-  {% if site.paginate %}
-    {% assign posts = paginator.posts %}
-  {% else %}
-    {% assign posts = site.posts %}
-  {% endif %}
+<!-- External bylines -->
+<section class="listing">
+  <p class="eyebrow">Published elsewhere</p>
+  <h2 class="section">Articles &amp; guest write-ups</h2>
+  <ul class="link-list">
+    <li>
+      <a class="item" href="https://cobalt.io/blog/from-csrf-and-file-upload-to-rce-java" target="_blank" rel="noopener">
+        <span class="item-title">From CSRF and File Upload to RCE — Java</span>
+        <span class="item-meta">Cobalt</span>
+      </a>
+    </li>
+    <li>
+      <a class="item" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/exploitation-of-sharepoint-2016-simple-things-matter-case-study/" target="_blank" rel="noopener">
+        <span class="item-title">Exploitation of SharePoint 2016: Simple Things Matter — Case Study</span>
+        <span class="item-meta">Trustwave SpiderLabs</span>
+      </a>
+    </li>
+    <li>
+      <a class="item" href="https://www.synack.com/blog/guest-blog-from-file-upload-to-rce/" target="_blank" rel="noopener">
+        <span class="item-title">From File Upload to RCE</span>
+        <span class="item-meta">Synack</span>
+      </a>
+    </li>
+  </ul>
+</section>
 
-  <h2 class="post-list-heading">Security advisories</h2>
-   <ul class="post-list">
-     <li><h3><a class="post-link" href="https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-ndb-path-traversal-wVDyXZPy">CVE-2020-3597</a></h3></li>
-     <li><h3><a class="post-link" href="https://www.zerodayinitiative.com/advisories/ZDI-21-879/">ZDI-21-879</a></h3></li>
-   </ul>
-
-   <h2 class="post-list-heading">Articles</h2>
-   <ul class="post-list">
-     <li><h3><a class="post-link" href="https://cobalt.io/blog/from-csrf-and-file-upload-to-rce-java">From CSRF and File Upload to RCE - JAVA</a></h3></li>
-     <li><h3><a class="post-link" href="https://www.trustwave.com/en-us/resources/blogs/spiderlabs-blog/exploitation-of-sharepoint-2016-simple-things-matter-case-study/">Exploitation of Sharepoint 2016: Simple Things Matter – Case Study</a></h3></li>
-     <li><h3><a class="post-link" href="https://www.synack.com/blog/guest-blog-from-file-upload-to-rce/">From File Upload to RCE</a></h3></li>
-   </ul>
-
-  {%- if posts.size > 0 -%}
-    <!--{%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%} -->
-    <h2 class="post-list-heading">Posts</h2>
-    <ul class="post-list">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {%- for post in posts -%}
-      <li>
-        <!--<span class="post-meta">{{ post.date | date: date_format }}</span>-->
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
-
-</div>
+<!-- Self-hosted posts -->
+{%- assign posts = site.posts -%}
+{%- if posts.size > 0 -%}
+<section class="listing">
+  <p class="eyebrow">On this site</p>
+  <h2 class="section">Write-ups</h2>
+  <ul class="link-list">
+    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+    {%- for post in posts -%}
+    <li>
+      <a class="item" href="{{ post.url | relative_url }}">
+        <span class="item-title">{{ post.title | escape }}</span>
+        <span class="item-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: date_format }}</time>
+        </span>
+      </a>
+      {%- if site.show_excerpts -%}
+        <div class="item-excerpt muted">{{ post.excerpt }}</div>
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}

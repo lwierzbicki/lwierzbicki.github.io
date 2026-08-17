@@ -1,17 +1,47 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="{{ page.lang | default: site.lang | default: 'en' }}">
 
   {%- include head.html -%}
 
   <body>
 
+    <!-- Reusable brand mark: copper hexagon with a ">" shell-prompt chevron on a
+         forest badge. Shared with willowrootsec.com; referenced via <use href="#wrs-mark">. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+      <symbol id="wrs-mark" viewBox="0 0 240 240">
+        <rect x="8" y="8" width="224" height="224" rx="52" fill="#16241C"/>
+        <polygon points="120,38 191,79 191,161 120,202 49,161 49,79" fill="#B98A4B"/>
+        <path d="M76 88 L124 120 L76 152" fill="none" stroke="#16241C" stroke-width="20" stroke-linejoin="miter" stroke-linecap="butt"/>
+        <rect x="146" y="109" width="22" height="22" fill="#16241C"/>
+      </symbol>
+    </svg>
+
     {%- include header.html -%}
 
     <main class="page-content" aria-label="Content">
-      <div class="wrapper">
+      <div class="wrap">
         {{ content }}
       </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap foot">
+        <div class="foot-brand">
+          <div class="rule"></div>
+          <div class="foot-name">Willow Root Labs</div>
+          <div class="muted">Security research &amp; technical write-ups.</div>
+        </div>
+        <div class="muted foot-legal">
+          The research arm of <a href="https://willowrootsec.com">Willow Root Security</a> —
+          the commercial brand of<br>
+          Lukasz Wierzbicki, OSVČ · Praha, Czechia<br>
+          <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener">GitHub</a> ·
+          <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" target="_blank" rel="noopener">LinkedIn</a> ·
+          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        </div>
+      </div>
+    </footer>
+
   </body>
 
 </html>

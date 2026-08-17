@@ -1,0 +1,193 @@
+/* Willow Root Labs — research/write-ups site for labs.willowrootsec.com.
+   Light-first, willow-green, token-based. Palette and type mirror the main
+   site (willowrootsec.com); source of truth is docs/brand-visual.md in the
+   willowrootsec repo. Re-skin by changing the :root values only.
+   Fonts (Bitter / Source Sans 3 / JetBrains Mono) are loaded in head.html. */
+
+:root {
+  /* light theme */
+  --paper:#F6F5EF; --surface:#FFFFFF; --ink:#16201B; --ink-soft:#47554D;
+  --line:#E4E2D8; --brand:#235C43; --brand-deep:#16402F; --brand-tint:#E8F0EA;
+  --leaf:#7FA98A; --accent:#B98A4B;
+  /* dark accent surface */
+  --dark-bg:#16241C; --dark-surface:#1E3226; --dark-ink:#EDEFEA; --dark-soft:#9FB2A6;
+  /* type + shape */
+  --font-display:"Bitter",Georgia,"Times New Roman",serif;
+  --font-sans:"Source Sans 3",-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --radius:14px; --radius-sm:8px; --maxw:820px; --wrap:1080px;
+}
+
+/* ── reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, h2, h3, h4, p, figure, ul, ol { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-deep); text-decoration: underline; }
+
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.15; letter-spacing: -0.01em; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 clamp(1.2rem, 4vw, 2rem); }
+.muted { color: var(--ink-soft); }
+
+.eyebrow {
+  font-size: .78rem; text-transform: uppercase; letter-spacing: .14em;
+  color: var(--brand); font-weight: 600; margin: 0 0 .7rem;
+}
+
+/* ── header ────────────────────────────────────────────────── */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.site-header .nav {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 66px;
+}
+.brand { display: flex; align-items: center; gap: .6rem; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand svg { display: block; border-radius: 7px; }
+.brand-text { font-family: var(--font-display); font-weight: 500; font-size: 1.12rem; }
+.brand-text b { font-weight: 600; color: var(--brand); }
+
+nav.site-nav { display: flex; align-items: center; gap: 1.5rem; }
+nav.site-nav a:not(.btn) {
+  color: var(--ink-soft); font-size: .95rem; font-weight: 500;
+}
+nav.site-nav a:not(.btn):hover,
+nav.site-nav a[aria-current="page"] { color: var(--brand); text-decoration: none; }
+.btn {
+  display: inline-block; background: var(--brand); color: #fff;
+  padding: .55rem 1rem; border-radius: var(--radius-sm);
+  font-weight: 600; font-size: .9rem; border: 1px solid var(--brand);
+}
+.btn:hover { background: var(--brand-deep); color: #fff; text-decoration: none; }
+@media (max-width: 680px) {
+  nav.site-nav a:not(.btn) { display: none; }
+}
+
+/* ── main / spacing ────────────────────────────────────────── */
+.page-content { flex: 1 0 auto; }
+.page-content > .wrap { max-width: var(--maxw); padding-top: clamp(2.5rem, 6vw, 4rem); padding-bottom: clamp(2.5rem, 6vw, 4rem); }
+
+/* ── hero (home) ───────────────────────────────────────────── */
+.hero { text-align: center; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.hero-mark { display: flex; justify-content: center; margin-bottom: 1.4rem; }
+.hero-mark svg { width: 76px; height: 76px; }
+.hero-title {
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  max-width: 20ch; margin: 0 auto;
+}
+.hero .eyebrow { text-align: center; }
+.hero .stmt {
+  max-width: 60ch; margin: 1.3rem auto 0;
+  font-size: 1.12rem; color: var(--ink-soft);
+}
+.hero .stmt p { margin: 0; }
+
+/* ── listing sections (home) ───────────────────────────────── */
+.listing { margin-top: clamp(2.4rem, 5vw, 3.4rem); }
+.listing .eyebrow { margin-bottom: .3rem; }
+h2.section { font-size: clamp(1.4rem, 3vw, 1.85rem); margin-bottom: 1.2rem; }
+
+ul.link-list { list-style: none; }
+ul.link-list li { border-top: 1px solid var(--line); }
+ul.link-list li:last-child { border-bottom: 1px solid var(--line); }
+a.item {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1.2rem; padding: 1rem .2rem; color: var(--ink);
+}
+a.item:hover { text-decoration: none; color: var(--brand-deep); }
+a.item:hover .item-title { color: var(--brand); }
+.item-title { font-family: var(--font-display); font-weight: 500; font-size: 1.08rem; line-height: 1.3; }
+.item-meta { flex: 0 0 auto; font-size: .82rem; color: var(--ink-soft); text-align: right; white-space: nowrap; }
+.item-excerpt { font-size: .95rem; padding: 0 .2rem .9rem; }
+@media (max-width: 560px) {
+  a.item { flex-direction: column; gap: .25rem; }
+  .item-meta { text-align: left; }
+}
+
+/* ── article (post / page) ─────────────────────────────────── */
+.back-link { display: inline-block; font-size: .88rem; font-weight: 500; margin-bottom: 1.6rem; }
+.post-header { margin-bottom: 2rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--line); }
+.post-title { font-size: clamp(1.9rem, 4.5vw, 2.7rem); margin-bottom: .7rem; }
+.post-meta { font-size: .9rem; color: var(--ink-soft); }
+
+.post-content { font-size: 1.06rem; line-height: 1.75; }
+.post-content > * + * { margin-top: 1.15rem; }
+.post-content h2 { font-size: 1.6rem; margin-top: 2.4rem; margin-bottom: .2rem; }
+.post-content h3 { font-size: 1.28rem; margin-top: 2rem; margin-bottom: .2rem; }
+.post-content h4 { font-size: 1.08rem; margin-top: 1.6rem; }
+.post-content a { text-decoration: underline; text-underline-offset: 2px; }
+.post-content ul, .post-content ol { padding-left: 1.4rem; }
+.post-content li + li { margin-top: .4rem; }
+.post-content img {
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  margin: 1.6rem auto; background: var(--surface);
+}
+.post-content hr { border: 0; border-top: 1px solid var(--line); margin: 2.2rem 0; }
+
+/* blockquote — TL;DR / callouts */
+.post-content blockquote {
+  margin: 1.6rem 0; padding: .9rem 1.2rem;
+  background: var(--brand-tint); border-left: 3px solid var(--brand);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink);
+}
+.post-content blockquote > * + * { margin-top: .5rem; }
+
+/* code */
+.post-content code {
+  font-family: var(--font-mono); font-size: .88em;
+  background: var(--brand-tint); color: var(--brand-deep);
+  padding: .12em .4em; border-radius: 5px;
+}
+.post-content pre {
+  font-family: var(--font-mono); font-size: .85rem; line-height: 1.6;
+  background: var(--dark-bg); color: var(--dark-ink);
+  padding: 1.1rem 1.2rem; border-radius: var(--radius-sm);
+  overflow-x: auto; margin: 1.6rem 0;
+}
+.post-content pre code {
+  background: none; color: inherit; padding: 0; font-size: 1em; border-radius: 0;
+}
+.highlighter-rouge, .highlight { border-radius: var(--radius-sm); }
+
+.post-content table { width: 100%; border-collapse: collapse; margin: 1.6rem 0; font-size: .95rem; }
+.post-content th, .post-content td { border: 1px solid var(--line); padding: .55rem .8rem; text-align: left; }
+.post-content th { background: var(--brand-tint); font-family: var(--font-display); font-weight: 600; }
+
+/* ── footer ────────────────────────────────────────────────── */
+.site-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+  padding: clamp(2rem, 4vw, 3rem) 0;
+  font-size: .9rem; color: var(--ink-soft);
+}
+.foot { display: flex; justify-content: space-between; gap: 1.6rem; flex-wrap: wrap; }
+.foot .rule { width: 34px; height: 2px; background: var(--accent); margin-bottom: .9rem; }
+.foot-name { font-family: var(--font-display); font-weight: 600; color: var(--ink); font-size: 1.02rem; }
+.foot-legal { line-height: 1.9; text-align: right; }
+@media (max-width: 560px) { .foot-legal { text-align: left; } }
+
+/* ── 404 ───────────────────────────────────────────────────── */
+.err { text-align: center; padding: clamp(2rem, 8vw, 5rem) 0; }
+.err .code { font-family: var(--font-display); font-size: clamp(3rem, 10vw, 5rem); color: var(--brand); }

@@ -1,0 +1,97 @@
+{%- comment -%}
+  Google Analytics 4 behind a minimal, GDPR-friendly consent banner.
+
+  Included from head.html only when jekyll.environment == 'production' AND
+  site.google_analytics is set, so it is inert during local `jekyll serve` and
+  when no measurement ID is configured.
+
+  Consent model: block-until-consent. gtag.js is not requested and no cookie is
+  set until the visitor presses Accept. Accept and Decline are styled with equal
+  prominence — unequal weighting is not freely-given consent. The choice is
+  revocable via window.resetCookieChoice().
+
+  Brand tokens are inlined here (this file may render before main.css on a cold
+  cache); they mirror the willow-green palette in assets/main.css.
+{%- endcomment -%}
+{%- if site.google_analytics -%}
+<style>
+  #consent-banner {
+    position: fixed; inset-inline: 0; bottom: 0; z-index: 9999;
+    display: flex; flex-wrap: wrap; gap: 14px 22px;
+    align-items: center; justify-content: center;
+    padding: 14px 20px;
+    background: #FFFFFF; border-top: 1px solid #E4E2D8;
+    box-shadow: 0 -4px 20px rgba(0,0,0,.06);
+    font: 400 14px/1.5 "Source Sans 3", -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #16201B;
+  }
+  #consent-banner p { margin: 0; max-width: 60ch; }
+  #consent-banner div { display: flex; gap: 10px; flex-shrink: 0; }
+  #consent-banner button {
+    font: inherit; font-weight: 600; padding: 7px 18px; cursor: pointer;
+    border-radius: 8px; border: 1px solid #235C43;
+  }
+  #consent-banner .accept { background: #235C43; color: #fff; }
+  #consent-banner .accept:hover { background: #16402F; }
+  #consent-banner .decline { background: transparent; color: #235C43; }
+  #consent-banner .decline:hover { background: #E8F0EA; }
+  #consent-banner button:focus-visible { outline: 2px solid #B98A4B; outline-offset: 2px; }
+</style>
+<script>
+  (function () {
+    var KEY = 'wrs-consent';
+    var ID = '{{ site.google_analytics }}';
+
+    function loadGA() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', ID);
+    }
+    function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function decide(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      var el = document.getElementById('consent-banner');
+      if (el && el.parentNode) { el.parentNode.removeChild(el); }
+      if (value === 'granted') { loadGA(); }
+    }
+    window.resetCookieChoice = function () {
+      try { localStorage.removeItem(KEY); } catch (e) {}
+      location.reload();
+    };
+
+    var stored = read();
+    if (stored === 'granted') { loadGA(); return; }
+    if (stored === 'denied') { return; }
+
+    function showBanner() {
+      var el = document.createElement('div');
+      el.id = 'consent-banner';
+      el.setAttribute('role', 'dialog');
+      el.setAttribute('aria-label', 'Analytics consent');
+      el.innerHTML =
+        '<p>This site uses Google Analytics to count visits. Nothing is stored ' +
+        'until you choose.</p>' +
+        '<div>' +
+        '<button type="button" class="accept" data-consent="granted">Accept</button>' +
+        '<button type="button" class="decline" data-consent="denied">Decline</button>' +
+        '</div>';
+      el.addEventListener('click', function (e) {
+        var v = e.target.getAttribute && e.target.getAttribute('data-consent');
+        if (v) { decide(v); }
+      });
+      document.body.appendChild(el);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showBanner);
+    } else {
+      showBanner();
+    }
+  })();
+</script>
+{%- endif -%}

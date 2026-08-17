@@ -1,44 +1,55 @@
-# Welcome to Jekyll!
+# Willow Root Labs — the research/write-ups arm of Willow Root Security.
+# Served at labs.willowrootsec.com. Brand tokens and design mirror the main
+# site (willowrootsec.com); see docs/brand-visual.md in the willowrootsec repo.
 #
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+# This file is NOT reloaded by `jekyll serve` — restart the server after edits.
 
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-title: v13rsba | Lukasz Wierzbicki
-email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Collection of write-ups, security research and advisories.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+# ── Identity (used by jekyll-seo-tag: <title>, meta description, Open Graph,
+#    Twitter cards, and JSON-LD schema.org markup) ──────────────────────────
+title: Willow Root Labs
+tagline: "Security research, advisories & technical write-ups"
+description: >- # ignore newlines until the next key
+  Offensive security research by Lukasz Wierzbicki — vulnerability write-ups,
+  coordinated advisories, and technical publications. The research arm of Willow
+  Root Security, a boutique penetration testing consultancy.
+
+# Required by jekyll-seo-tag for a valid canonical URL and absolute og:image.
+url: "https://labs.willowrootsec.com"
+baseurl: ""
+
+# ── Author / organisation (drives the JSON-LD Person + Organization schema) ──
+author:
+  name: Lukasz Wierzbicki
+  twitter: v13rs8a
+logo: /apple-touch-icon.png
+
+social:
+  name: Lukasz Wierzbicki
+  links:
+    - https://www.linkedin.com/in/lwierzbicki
+    - https://github.com/lwierzbicki
+    - https://willowrootsec.com
+
 linkedin_username: lwierzbicki
+github_username: lwierzbicki
 twitter_username: v13rs8a
-github_username:  lwierzbicki
 
+# ── Analytics (GA4, consent-gated, production only) ──────────────────────────
+# Rendered only when set AND jekyll.environment == 'production', and only after
+# the visitor accepts (see _includes/google-analytics.html). This is the labs
+# GA4 property (the main site willowrootsec.com uses a separate one).
+google_analytics: G-RHZB7WVEJP
 
-# Build settings
-#markdown: GFM
+# ── Build ────────────────────────────────────────────────────────────────────
 markdown: kramdown
 theme: minima
 plugins:
   - jekyll-feed
+  - jekyll-seo-tag
 
-# Exclude from processing.
-# The following items will not be processed, by default. Create a custom list
-# to override the default setting.
-# exclude:
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+# Keep the raw pentest PoC assets and this config out of the built feed/pages.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - README.md
